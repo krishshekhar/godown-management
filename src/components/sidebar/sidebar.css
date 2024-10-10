@@ -1,58 +1,113 @@
-/* sidebar.css */
-
+/* Sidebar Container */
 .sidebar {
-  width: 350px;
+  width: 400px;
   background-color: #f0f4f8;
   padding: 1rem;
   height: 100vh;
   overflow-y: auto;
+  border-right: 1px solid #cbd5e0; /* Optional border to separate sidebar visually */
 }
 
+/* Parent and Child Titles with Flex Layout */
 .parent-title, .child-title {
   display: flex;
   align-items: center;
+  justify-content: space-between; /* Ensures arrow is aligned to the right */
   cursor: pointer;
   padding: 0.5rem 0;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
 }
 
+/* Hover Effect for Parent and Child Titles */
+.parent-title:hover, .child-title:hover {
+  background-color: #e2e8f0; /* Lighter hover effect */
+}
+
+/* Arrow Styling */
 .arrow {
-  margin-right: 10px;
-}
-
-.arrow.right {
-  border: solid black;
+  margin-left: 10px;
+  width: 12px;
+  height: 12px;
+  border: solid #2d3748;
   border-width: 0 2px 2px 0;
   display: inline-block;
   padding: 3px;
+}
+
+.arrow.right {
   transform: rotate(45deg);
 }
 
 .arrow.down {
-  border: solid black;
-  border-width: 0 2px 2px 0;
-  display: inline-block;
-  padding: 3px;
   transform: rotate(135deg);
 }
 
+/* Dropdown Content and Child Godown Indentation */
 .dropdown-content, .child-godowns {
   padding-left: 1.5rem;
+  border-left: 2px solid #cbd5e0; /* Optional vertical line to visualize hierarchy */
 }
 
+/* Items List Styling */
 .items-list {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
+/* Item Row Styling */
 .item {
   display: flex;
   align-items: center;
+  justify-content: space-between; /* Ensures price and other details align right */
   padding: 0.5rem 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
+.item:hover {
+  background-color: #e2e8f0; /* Lighter hover effect */
+}
+
+/* Highlight for Selected Item */
+.item.selected {
+  background-color: #cbd5e0; /* Highlight selected item */
+}
+
+/* Item Image */
 .item img {
   width: 50px;
   height: 50px;
   margin-right: 10px;
   border-radius: 5px;
+  object-fit: cover;
+}
+
+/* Item Details Layout */
+.item div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+/* Button inside Item - No Borders */
+.item button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #2d3748;
+  font-weight: bold;
+  text-align: left;
+  padding: 0;
+  margin: 0;
+}
+
+/* Price Styling */
+.item p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+  color: #4a5568;
 }

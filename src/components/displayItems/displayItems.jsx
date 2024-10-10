@@ -47,7 +47,9 @@ const DisplayItems = ({ items }) => {
 
         {/* Current Item */}
         <div className="item-card">
-          <img src={currentItem.image_url} alt={currentItem.name} className="item-image" />
+          {currentItem.status==="out_of_stock"?<><div className="outOfStock">OUT OF STOCK</div>
+          <img src={currentItem.image_url} alt={currentItem.name} className="transparent item-image" /></>:
+          <img src={currentItem.image_url} alt={currentItem.name} className="item-image" />}
           <div className="item-details">
             <div>
               <p><strong>Name:</strong> {currentItem.name}</p>
@@ -61,7 +63,9 @@ const DisplayItems = ({ items }) => {
               <p><strong>Color:</strong> {currentItem.attributes.color}</p>
               <p><strong>Godown:</strong> {godownName}</p> {/* Display godown name */}
             </div>
+           
           </div>
+          <div><p>{currentItem.status}</p></div>
         </div>
 
         {/* Display Previous Item */}
@@ -87,9 +91,12 @@ const DisplayItems = ({ items }) => {
       <div className="items-grid">
         {items.map((item, index) => (
           <div key={item.item_id} className="grid-item" onClick={() => handleItemClick(index)}>
-            <img src={item.image_url} alt={item.name} className="grid-item-image" />
+            {item.status==="out_of_stock"?<><div className="outOfstock">OUT OF STOCK</div>
+            <img src={item.image_url} alt={item.name} className="transparent grid-item-image" /></>:
+            <img src={item.image_url} alt={item.name} className="grid-item-image" />}
             <div className="grid-item-details">
               <p>{item.name}</p>
+              <p><strong>Godown:</strong> {godownName}</p> 
               <p>Price: ${item.price}</p>
             </div>
           </div>

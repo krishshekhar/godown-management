@@ -125,3 +125,30 @@
     justify-content: space-between;
     font-size: 10px;
   }
+
+  .outOfStock{
+    position: absolute;
+    bottom: 60%;
+    font: bolder;
+    color: black;
+    opacity: 1;
+    z-index: 100;
+    background-color: white;
+    font-size: 30px;
+  }
+
+  .transparent{
+    opacity: 0.5;
+  }
+
+  .outOfstock{
+    position: absolute;
+    margin-top: 60px;
+    margin-left: 70px;
+    font: bolder;
+    font-size: 20px;
+    background-color: white;
+    color: black;
+    opacity: 1;
+    z-index: 100;
+  }

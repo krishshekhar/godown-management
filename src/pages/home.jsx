@@ -3,7 +3,7 @@ import Sidebar from "./../components/sidebar/sidebar";
 import SearchBar from "./../components/search/search";
 import DisplayItems from "./../components/displayItems/displayItems";
 import itemsData from '../components/items.json'; // Import items for searching
-
+import './home.css';
 
 
 const Home = () => {
@@ -24,21 +24,21 @@ const Home = () => {
   }, [searchQuery]); // Only runs when searchQuery changes
 
   return (
-    <div className=" bg-gray-100 flex">
+    <div style={{display:"flex"}}>
       {/* Sidebar on the left */}
-      <div className="w-1/4 " >
+      <div className="sidebar" >
         <Sidebar setDisplayItems={setDisplayItems} />
       </div>
 
       {/* Main content area */}
-      <div className="w-3/4 p-8">
+      <div className="main-content">
         {/* Centered Search Bar in the middle of the screen */}
         <div className="flex justify-center"  >
           <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         </div>
 
         {/* Display Items below the search bar */}
-        <div className="flex justify-center" style={{width:"1200px"}}>
+        <div className="flex justify-center" >
           <DisplayItems items={displayItems} />
         </div>
       </div>

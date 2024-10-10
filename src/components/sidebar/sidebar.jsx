@@ -6,8 +6,9 @@ import './sidebar.css'; // Import the styles
 const Sidebar = ({ setDisplayItems }) => {
   const [godowns, setGodowns] = useState([]);
   const [items, setItems] = useState([]);
-  const [expandedParents, setExpandedParents] = useState({});
-  const [expandedChildren, setExpandedChildren] = useState({});
+  const [expandedGodowns, setExpandedGodowns] = useState({});
+  const [expandedItems, setExpandedItems] = useState({}); // Track expanded items
+  const [selectedItemId, setSelectedItemId] = useState(null); // State to track clicked item
 
   useEffect(() => {
     // Set the godowns and items from the imported data
@@ -15,19 +16,19 @@ const Sidebar = ({ setDisplayItems }) => {
     setItems(itemsData);
   }, []);
 
-  // Toggle expand/collapse of parent godowns
-  const toggleExpandParent = (parentId) => {
-    setExpandedParents((prev) => ({
+  // Toggle expand/collapse of godowns
+  const toggleExpandGodown = (godownId) => {
+    setExpandedGodowns((prev) => ({
       ...prev,
-      [parentId]: !prev[parentId],
+      [godownId]: !prev[godownId],
     }));
   };
 
-  // Toggle expand/collapse of child godowns
-  const toggleExpandChild = (childId) => {
-    setExpandedChildren((prev) => ({
+  // Toggle expand/collapse of items
+  const toggleExpandItem = (itemId) => {
+    setExpandedItems((prev) => ({
       ...prev,
-      [childId]: !prev[childId],
+      [itemId]: !prev[itemId],
     }));
   };
 
@@ -36,82 +37,90 @@ const Sidebar = ({ setDisplayItems }) => {
     return items.filter((item) => item.godown_id === godownId);
   };
 
-  // Render the sidebar with dropdown logic
-  const renderGodowns = () => {
-    const parentGodowns = godowns.filter((g) => g.parent_godown === null);
-    const childGodowns = godowns.filter((g) => g.parent_godown !== null);
+  // Get child godowns for a given godown
+  const getChildGodowns = (parentGodownId) => {
+    return godowns.filter((g) => g.parent_godown === parentGodownId);
+  };
 
-    return parentGodowns.map((parent) => {
-      const children = childGodowns.filter((g) => g.parent_godown === parent.id);
-      const isExpandedParent = expandedParents[parent.id] || false;
-      const itemsInParentGodown = getItemsForGodown(parent.id);
+  // Handle item click and set selected item
+  const handleItemClick = (item) => {
+    setDisplayItems([item]);
+    setSelectedItemId(item.item_id); // Set the clicked item
+  };
+
+  // Recursive function to render items (supports nested items)
+  const renderItems = (itemsList) => {
+    return itemsList.map((item) => {
+      const hasChildren = item.children && item.children.length > 0; // Check if item has children
+      const isExpanded = expandedItems[item.item_id] || false;
 
       return (
-        <div key={parent.id} className="parent-godown">
-          {/* Parent Godown with Arrow */}
-          <div className="parent-title" onClick={() => toggleExpandParent(parent.id)}>
-            {children.length > 0 && (
-              <span className={`arrow ${isExpandedParent ? 'down' : 'right'}`} />
+        <li key={item.item_id} className={`item ${selectedItemId === item.item_id ? 'selected' : ''}`}>
+          {/* Item Row */}
+          <div className="item-row" onClick={() => handleItemClick(item)}>
+            <img src={item.image_url} alt={item.name} className="item-image" />
+            <div>
+              <button>{item.name}</button>
+              <p>Price: ${item.price}</p>
+              <p>Quantity: {item.quantity}</p>
+            </div>
+
+            {/* Arrow if item has children */}
+            {hasChildren && (
+              <span
+                className={`arrow ${isExpanded ? 'down' : 'right'}`}
+                onClick={(e) => {
+                  e.stopPropagation(); // Prevent triggering the parent click
+                  toggleExpandItem(item.item_id);
+                }}
+              />
             )}
-            <h3>{parent.name}</h3>
           </div>
 
-          {/* Dropdown for items and child godowns */}
-          {isExpandedParent && (
+          {/* Render sub-items if expanded */}
+          {isExpanded && hasChildren && (
+            <ul className="items-list child-items">
+              {renderItems(item.children)} {/* Recursive call for child items */}
+            </ul>
+          )}
+        </li>
+      );
+    });
+  };
+
+  // Recursive function to render godowns and their child godowns
+  const renderGodowns = (parentGodownId = null) => {
+    const currentGodowns = godowns.filter((g) => g.parent_godown === parentGodownId);
+
+    return currentGodowns.map((godown) => {
+      const isExpanded = expandedGodowns[godown.id] || false;
+      const childGodowns = getChildGodowns(godown.id);
+      const itemsInGodown = getItemsForGodown(godown.id);
+
+      return (
+        <div key={godown.id} className="godown">
+          {/* Godown Title */}
+          <div className="godown-title" onClick={() => toggleExpandGodown(godown.id)}>
+            <h4>{godown.name}</h4>
+            {childGodowns.length > 0 && (
+              <span className={`arrow ${isExpanded ? 'down' : 'right'}`} />
+            )}
+          </div>
+
+          {/* Expand items and child godowns */}
+          {isExpanded && (
             <div className="dropdown-content">
-              {/* Items in the Parent Godown */}
-              {itemsInParentGodown.length > 0 && (
+              {/* Items in the Godown */}
+              {itemsInGodown.length > 0 && (
                 <ul className="items-list">
-                  {itemsInParentGodown.map((item) => (
-                    <li key={item.item_id} className="item">
-                      <img src={item.image_url} alt={item.name} className="item-image" />
-                      <div>
-                        <button onClick={() => setDisplayItems([item])}>
-                          {item.name}
-                        </button>
-                        <p>Price: ${item.price}</p>
-                        <p>Quantity: {item.quantity}</p>
-                      </div>
-                    </li>
-                  ))}
+                  {renderItems(itemsInGodown)} {/* Render items with sub-items */}
                 </ul>
               )}
 
-              {/* Children Godowns */}
-              {children.length > 0 && (
+              {/* Recursive call to render child godowns */}
+              {childGodowns.length > 0 && (
                 <div className="child-godowns">
-                  {children.map((child) => {
-                    const isExpandedChild = expandedChildren[child.id] || false;
-                    const itemsInChildGodown = getItemsForGodown(child.id);
-
-                    return (
-                      <div key={child.id}>
-                        {/* Child Godown with Arrow */}
-                        <div className="child-title" onClick={() => toggleExpandChild(child.id)}>
-                          <span className={`arrow ${isExpandedChild ? 'down' : 'right'}`} />
-                          <h4>{child.name}</h4>
-                        </div>
-
-                        {/* Items in the Child Godown */}
-                        {isExpandedChild && itemsInChildGodown.length > 0 && (
-                          <ul className="items-list">
-                            {itemsInChildGodown.map((item) => (
-                              <li key={item.item_id} className="item">
-                                <img src={item.image_url} alt={item.name} className="item-image" />
-                                <div>
-                                  <button onClick={() => setDisplayItems([item])}>
-                                    {item.name}
-                                  </button>
-                                  <p>Price: ${item.price}</p>
-                                  <p>Quantity: {item.quantity}</p>
-                                </div>
-                              </li>
-                            ))}
-                          </ul>
-                        )}
-                      </div>
-                    );
-                  })}
+                  {renderGodowns(godown.id)} {/* Recursion for child godowns */}
                 </div>
               )}
             </div>
