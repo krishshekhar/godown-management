@@ -48,6 +48,12 @@ const Sidebar = ({ setDisplayItems }) => {
     setSelectedItemId(item.item_id); // Set the clicked item
   };
 
+  // Handle godown button click to display items of that godown
+  const handleGodownButtonClick = (godownId) => {
+    const itemsInGodown = getItemsForGodown(godownId);
+    setDisplayItems(itemsInGodown);
+  };
+
   // Recursive function to render items (supports nested items)
   const renderItems = (itemsList) => {
     return itemsList.map((item) => {
@@ -101,9 +107,16 @@ const Sidebar = ({ setDisplayItems }) => {
         <div key={godown.id} className="godown">
           {/* Godown Title */}
           <div className="godown-title" onClick={() => toggleExpandGodown(godown.id)}>
-            <h4>{godown.name}</h4>
-            {childGodowns.length > 0 && (
+            <div className="flex"> <h4>{godown.name}</h4>
+            {(childGodowns.length > 0||itemsInGodown.length > 0) && (
               <span className={`arrow ${isExpanded ? 'down' : 'right'}`} />
+            )}</div>
+            
+            {/* Button to display all items of this godown */}
+            {itemsInGodown.length > 0 && (
+              <button onClick={() => handleGodownButtonClick(godown.id)} className="view-items-button">
+                View Items
+              </button>
             )}
           </div>
 

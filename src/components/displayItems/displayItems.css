@@ -14,6 +14,7 @@
   .grid-item {
     background-color: white;
     border-radius: 0.5rem;
+    font-size: 14px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 1rem;
     cursor: pointer;
@@ -36,7 +37,7 @@
   .grid-item-details {
     text-align: center;
     margin-top: 0.5rem;
-    height: 6rem; /* Fixed height for the text details */
+    height: 5rem; /* Fixed height for the text details */
     display: flex;
     flex-direction: column;
     justify-content: space-between;

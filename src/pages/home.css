@@ -1,5 +1,6 @@
 .sidebar {
-  background-color: #e2e8f0; /* Light gray for sidebar */
+  background-color: #e2e8f0;
+ /* Light gray for sidebar */
 }
 
 .main-content {
@@ -27,7 +28,7 @@
 }
 
 .filter-sidebar {
-  width: 300px;
+
   padding: 1.5rem;
   background-color: #edf2f7; /* Light background color */
   height: 100vh;
