@@ -1,0 +1,127 @@
+/* Grid View */
+.grid-container {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+  }
+  
+  .items-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  
+  .grid-item {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    width: 20rem; /* Fixed width */
+    height: 20rem; /* Fixed height */
+  }
+  
+  .grid-item:hover {
+    transform: scale(1.05);
+  }
+  
+  .grid-item-image {
+    width: 100%;
+    height: 12rem; /* Fixed height for the image */
+    object-fit: cover; /* Ensures the image covers the area without distortion */
+    border-radius: 0.5rem;
+  }
+  
+  .grid-item-details {
+    text-align: center;
+    margin-top: 0.5rem;
+    height: 6rem; /* Fixed height for the text details */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  /* Single Item View */
+  .single-item-view-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+  }
+  
+  .item-card {
+    width: 100%;
+    max-width: 48rem;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease-in-out;
+    height: 35rem; /* Fixed height */
+  }
+  
+  .item-image {
+    width: 100%;
+    height: 20rem; /* Fixed height for the image */
+    object-fit: cover;
+    border-radius: 0.5rem;
+  }
+  
+  .item-details {
+    text-align: center;
+    margin-top: 1rem;
+    display: flex;
+    height: 8rem; /* Fixed height for details */
+  }
+  
+  /* Exit Button */
+  .exit-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  
+
+  .grid-item-ex {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0.5;
+    padding: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    width: 10rem; /* Fixed width */
+    height: 10rem; /* Fixed height */
+  }
+  
+  .grid-item-ex:hover {
+    transform: scale(1.05);
+  }
+  
+  .grid-item-image-ex {
+    width: 100%;
+    height: 5rem; /* Fixed height for the image */
+    object-fit: cover; /* Ensures the image covers the area without distortion */
+    border-radius: 0.5rem;
+  }
+  
+  .grid-item-details-ex {
+    text-align: center;
+    margin-top: 0.5rem;
+    height: 2rem; /* Fixed height for the text details */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 10px;
+  }

@@ -1,0 +1,19 @@
+.searchbox{
+    width: 350px;
+    border: 1px solid gray;
+    height: 50px;
+    border-radius: 50px;
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.searchbox input{
+    width: 300px;
+    background-color: transparent;
+    padding-left: 20px;
+}
+
+.searchbox button{
+    align-items: center;
+}

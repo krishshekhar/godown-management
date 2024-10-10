@@ -1,0 +1,58 @@
+/* sidebar.css */
+
+.sidebar {
+  width: 350px;
+  background-color: #f0f4f8;
+  padding: 1rem;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.parent-title, .child-title {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.5rem 0;
+}
+
+.arrow {
+  margin-right: 10px;
+}
+
+.arrow.right {
+  border: solid black;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+}
+
+.arrow.down {
+  border: solid black;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(135deg);
+}
+
+.dropdown-content, .child-godowns {
+  padding-left: 1.5rem;
+}
+
+.items-list {
+  list-style: none;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.item img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 5px;
+}

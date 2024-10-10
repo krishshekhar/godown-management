@@ -1,0 +1,28 @@
+/* home.css */
+
+.sidebar {
+  width: 25%;
+  background-color: #e2e8f0; /* Light gray for sidebar */
+}
+
+.main-content {
+  width: 75%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-bar-container {
+  margin-bottom: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+}
+
+.display-items-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
