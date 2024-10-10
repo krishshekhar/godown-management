@@ -2,45 +2,51 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from "./../components/sidebar/sidebar";
 import SearchBar from "./../components/search/search";
 import DisplayItems from "./../components/displayItems/displayItems";
-import itemsData from '../components/items.json'; // Import items for searching
+import FilterSidebar from "./../components/filter/filterSidebar"; // Import FilterSidebar
+import itemsData from '../components/items.json';
 import './home.css';
-
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [displayItems, setDisplayItems] = useState(itemsData); // Initially show all items
+  const [displayItems, setDisplayItems] = useState(itemsData);
+  const [filteredItems, setFilteredItems] = useState(itemsData);
 
-  // Filter items based on search query when search icon is clicked
+  // Filter items based on search query
   useEffect(() => {
     if (searchQuery === '') {
-      setDisplayItems(itemsData); // Show all items when search is empty
+      setDisplayItems(itemsData);
     } else {
-      const filteredItems = itemsData.filter((item) =>
-        item.name.toLowerCase().includes(searchQuery) ||
-        item.brand.toLowerCase().includes(searchQuery)
+      const filtered = itemsData.filter((item) =>
+        item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.brand.toLowerCase().includes(searchQuery.toLowerCase())
       );
-      setDisplayItems(filteredItems);
+      setDisplayItems(filtered);
     }
-  }, [searchQuery]); // Only runs when searchQuery changes
+  }, [searchQuery]);
 
   return (
-    <div style={{display:"flex"}}>
+    <div style={{ display: "flex" }}>
       {/* Sidebar on the left */}
-      <div className="sidebar" >
+      <div className="sidebar">
         <Sidebar setDisplayItems={setDisplayItems} />
       </div>
 
       {/* Main content area */}
       <div className="main-content">
-        {/* Centered Search Bar in the middle of the screen */}
-        <div className="flex justify-center"  >
+        {/* Search bar */}
+        <div className="flex justify-center">
           <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         </div>
 
-        {/* Display Items below the search bar */}
-        <div className="flex justify-center" >
-          <DisplayItems items={displayItems} />
+        {/* Display Items */}
+        <div className="flex justify-center display-items-container">
+          <DisplayItems items={filteredItems} />
         </div>
+      </div>
+
+      {/* Filter Sidebar on the right */}
+      <div className="filter-sidebar">
+        <FilterSidebar items={displayItems} setFilteredItems={setFilteredItems} />
       </div>
     </div>
   );

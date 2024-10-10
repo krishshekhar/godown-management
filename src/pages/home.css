@@ -1,7 +1,4 @@
-/* home.css */
-
 .sidebar {
-
   background-color: #e2e8f0; /* Light gray for sidebar */
 }
 
@@ -18,11 +15,22 @@
   width: 100%;
   display: flex;
   justify-content: center;
-
 }
 
 .display-items-container {
   width: 100%;
   display: flex;
   justify-content: center;
+  height: calc(100vh - 120px); /* Fixed height to make only this section scrollable */
+  overflow-y: auto; /* Enables vertical scrolling within this container */
+  padding-right: 10px; /* Add some padding to avoid content being too close to the scrollbar */
+}
+
+.filter-sidebar {
+  width: 300px;
+  padding: 1.5rem;
+  background-color: #edf2f7; /* Light background color */
+  height: 100vh;
+  overflow-y: auto;
+  border-left: 1px solid #cbd5e0; /* Subtle border between content and filter */
 }
