@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import godownsData from './../../components/godowns.json'; // Import the godowns list
 import './displayItems.css';
@@ -83,6 +83,11 @@ const DisplayItems = ({ items }) => {
   return (
     <div className="grid-container">
       <div className="items-grid">
+        {/* Display the count of displayed items */}
+        <div className="item-count">
+          <p>{items.length} items displayed</p>
+        </div>
+
         {items.map((item, index) => {
           const godown = godownsData.find(g => g.id === item.godown_id);
           const godownName = godown ? godown.name : 'Unknown';
