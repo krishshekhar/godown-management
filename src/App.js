@@ -4,7 +4,7 @@ import Home from './pages/home';
 import LoginPage from './pages/loginPage';
 
 function App() {
-  const isAuthenticated = !!localStorage.getItem('authToken'); // Check if the auth token exists
+  const isAuthenticated = localStorage.getItem('authToken'); // Check if the auth token exists
 
   return (
     <Router>
